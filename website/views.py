@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
+from .forms import PostForm
 from .models import Post, User, Comment, Like
 from . import db
 
@@ -8,7 +9,6 @@ views = Blueprint("views", __name__)
 
 @views.route("/")
 @views.route("/home")
-@login_required
 def home():
     posts = Post.query.all()
     return render_template("home.html", user=current_user, posts=posts)
@@ -68,7 +68,6 @@ def delete_post(id):
 
 
 @views.route("/posts/<username>")
-@login_required
 def posts(username):
     user = User.query.filter_by(username=username).first()
 
