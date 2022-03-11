@@ -32,6 +32,24 @@ def create_post():
     return render_template('create_post.html', user=current_user)
 
 
+@views.route("/update-post/<id>", methods=['GET', 'POST'])
+@login_required
+def update_post(id):
+    posts = Post.query.filter_by(id=id).first()
+    if posts.author == current_user:
+        flash("You havn\'t the permission", category='error')
+    form = PostForm()
+    if form.validate_on_submit():
+        posts.text = form.text.data
+        db.session.commit()
+        flash('Post has been updated', category='success')
+        return redirect(url_for('post', post_id=posts.id))
+    elif request.method == 'GET':
+        form.text.data = posts.text
+    
+    return render_template("posts.html", user=current_user, posts=posts)
+
+
 @views.route("/delete-post/<id>")
 @login_required
 def delete_post(id):
@@ -102,8 +120,7 @@ def delete_comment(comment_id):
 @login_required
 def like(post_id):
     post = Post.query.filter_by(id=post_id).first()
-    like = Like.query.filter_by(
-        author=current_user.id, post_id=post_id).first()
+    like = Like.query.filter_by(author=current_user.id, post_id=post_id).first()
 
     if not post:
         return jsonify({'error': 'Post does not exist.'}, 400)
