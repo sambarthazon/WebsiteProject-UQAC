@@ -1,18 +1,21 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from os import path
+from flask import request
 from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash
 
-db = SQLAlchemy() # db will be a type of database (SQLAlchemy)
-DB_NAME = "database.db" # Name of database
+app = Flask(__name__) # Flask application
 
+db = SQLAlchemy(app) # db will be a type of database (SQLAlchemy)
+
+migrate = Migrate(app, db)
 
 def create_app():
-    app = Flask(__name__) # Flask application
-    app.config['SECRET_KEY'] = "secretkey"
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config.from_object('config.DevConfig')
     db.init_app(app) # Application's database initialisation
+    migrate.init_app(app, db)
 
     from .views import views
     from .auth import auth
@@ -22,7 +25,7 @@ def create_app():
 
     from .models import User, Post, Comment, Like
 
-    create_database(app) # Create database 
+    create_database(app) # Create database
 
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
@@ -36,6 +39,6 @@ def create_app():
 
 
 def create_database(app):
-    if not path.exists("website/" + DB_NAME): # If database doesn't exist create it 
+    if not path.exists("website/"): # If database doesn't exist create it 
         db.create_all(app=app)
         print("Created database!")
