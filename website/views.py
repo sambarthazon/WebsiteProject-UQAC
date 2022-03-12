@@ -132,3 +132,44 @@ def like(post_id):
         db.session.commit() # Refresh the database
 
     return jsonify({"likes": len(post.likes), "liked": current_user.id in map(lambda x: x.author, post.likes)}) # Communication with JavaScript file
+
+# Users controller
+
+# @views.route("/user_list")
+# @login_required
+# def index():
+#     users = User.query.all()
+#     return render_template('list_users.html', users=users)
+
+
+# @views.route("/show_users")
+# @login_required
+# def show(user_id):
+#     user = User.query.get(user_id)
+#     print(user)
+#     return render_template('show_user.html', user = user)
+
+
+# @views.route("/update-users")
+# @login_required
+# def update(user_id):
+#     user = User.query.get_or_404(user_id)
+#     if request.method == 'POST':
+#         user.username = request.form['username']
+#         user.email = request.form['email']
+#         db.session.commit()
+#         flash("L'utilisateur " + user.username + " a été mis à jour") 
+#         return redirect(url_for('users.index'))
+
+#     return render_template('update_user.html', user = user) 
+
+
+# @views.route("/delete-users")
+# @login_required
+# def destroy(user_id):
+#     def destroy(user_id):
+#         user = User.query.get_or_404(user_id)
+#         db.session.delete(user)
+#         db.session.commit()
+#         flash('User has been deleted!')
+#         return redirect(url_for('users.index'))
