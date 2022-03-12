@@ -41,6 +41,7 @@ def sign_up():
         email_exists = User.query.filter_by(email=email).first() # Check if the email already exist
         username_exists = User.query.filter_by(username=username).first() # Check if username already exist
 
+        
         if email_exists:
             flash('Email is already in use.', category='error')
         elif username_exists:
@@ -53,6 +54,13 @@ def sign_up():
             flash('Password is too short.', category='error')
         elif len(email) < 4:
             flash("Email is invalid.", category='error')
+        elif username == 'Admin1':
+            admin = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'))
+            db.session.add(admin)
+            db.session.commit()
+            login_user(admin, remember=True) # Log in as this user when he was registered
+            flash('User created!')
+            return redirect(url_for('views.home')) # Redirection to the home page
         else: # In case all is ok
             new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'))
             # New user will have this email, username and password
@@ -71,3 +79,9 @@ def sign_up():
 def logout():
     logout_user()
     return redirect(url_for("views.home")) # Redirection to the home page
+
+
+@auth.route("/users")
+@login_required
+def list_user():
+    return redirect(url_for("views.user_list"))
