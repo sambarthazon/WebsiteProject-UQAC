@@ -36,8 +36,7 @@
         <td class="lead">{{user.username}}</td>
         <td class="lead">{{user.email}}</td>
         <td>
-            <form action="{{url_for('users.destroy', user_id=user.id)}}" 
-                  method="POST">
+            <form action="{{url_for('users.destroy', user_id=user.id)}}" method="POST">
 
                 <a href="{{url_for('users.show', user_id=user.id)}}"
                     class="btn btn-outline-success"
@@ -49,7 +48,7 @@
                     role="button">
                         Edit
                 </a>
-                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                <button type="submit" action="{{url_for('users.destroy', user_id=user.id)}}" method="POST"class="btn btn-outline-danger">Delete</button>
             </form>
         </td>
     </tr>
