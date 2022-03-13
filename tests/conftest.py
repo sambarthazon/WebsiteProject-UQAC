@@ -1,21 +1,12 @@
-import email
-import pytest
-from app import create_app
-from website.auth import login
-from website.models import User, Post
+from flask import Flask
+from flask_testing import TestCase
+from sqlalchemy import true
 
 
-@pytest.fixture(scope='module')
-def test_app():
-    return create_app()
-
-
-@pytest.fixture(scope='module')
-def new_user():
-    user = User(email="patkennedy79@gmail.com", username="patkennedy")
-    return user
-
-
-@pytest.fixture(scope='module')
-def new_post():
-    post = Post(text="Test", author="Johann")
+class MyTest(TestCase):
+    def create_app(self):
+        app = Flask(__name__)
+        app.config['TESTING'] = True
+        
+        return app
+    
