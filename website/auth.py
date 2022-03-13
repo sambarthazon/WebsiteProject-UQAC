@@ -9,7 +9,7 @@ auth = Blueprint("auth", __name__)
 
 
 # Login as a user
-@auth.route("/login", methods=['GET', 'POST'])
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get("email")
@@ -22,15 +22,15 @@ def login():
                 login_user(user, remember=True) # Log in was success
                 return redirect(url_for('views.home')) # Redirection to the home page
             else:
-                flash('Password is incorrect.', category='error')
+                flash("Password is incorrect.", category='error')
         else:
-            flash('Email does not exist.', category='error')
+            flash("Email does not exist.", category='error')
 
-    return render_template("login.html", user=current_user) # Print the login html page
+    return render_template('login.html', user=current_user) # Print the login html page
 
 
 # Sign up to the site
-@auth.route("/sign-up", methods=['GET', 'POST'])
+@auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
         email = request.form.get("email") # Ask the email
@@ -41,17 +41,16 @@ def sign_up():
         email_exists = User.query.filter_by(email=email).first() # Check if the email already exist
         username_exists = User.query.filter_by(username=username).first() # Check if username already exist
 
-        
         if email_exists:
-            flash('Email is already in use.', category='error')
+            flash("Email is already in use.", category='error')
         elif username_exists:
-            flash('Username is already in use.', category='error')
+            flash("Username is already in use.", category='error')
         elif password1 != password2:
-            flash('Password don\'t match!', category='error')
+            flash("Password don\'t match!", category='error')
         elif len(username) < 2:
-            flash('Username is too short.', category='error')
+            flash("Username is too short.", category='error')
         elif len(password1) < 6:
-            flash('Password is too short.', category='error')
+            flash("Password is too short.", category='error')
         elif len(email) < 4:
             flash("Email is invalid.", category='error')
         elif username == 'Admin1':
@@ -70,18 +69,12 @@ def sign_up():
             flash('User created!')
             return redirect(url_for('views.home')) # Redirection to the home page
 
-    return render_template("signup.html", user=current_user) # Print the sign-up html page
+    return render_template('signup.html', user=current_user) # Print the sign-up html page
 
 
 # Logout
-@auth.route("/logout")
+@auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("views.home")) # Redirection to the home page
-
-
-# @auth.route("/users")
-# @login_required
-# def list_user():
-#     return redirect(url_for("views.user_list"))
+    return redirect(url_for('views.home')) # Redirection to the home page
