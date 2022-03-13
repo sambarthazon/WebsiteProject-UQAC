@@ -81,7 +81,7 @@ def logout():
     return redirect(url_for("views.home")) # Redirection to the home page
 
 
-@auth.route("/users")
-@login_required
-def list_user():
-    return redirect(url_for("views.user_list"))
+# @auth.route("/users")
+# @login_required
+# def list_user():
+#     return redirect(url_for("views.user_list"))
