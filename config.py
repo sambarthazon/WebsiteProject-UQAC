@@ -7,7 +7,7 @@ class Config:
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
     FLASK_APP = 'app.py'
-    SECRET_KEY = "super secret key"
+    SECRET_KEY = "mysecretkey"
 
 
 class ProdConfig(Config):
