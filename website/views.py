@@ -35,22 +35,19 @@ def create_post():
 
 
 # Update a post (unfunctional)
-@views.route('/update-post/<id>', methods=['GET', 'POST'])
+@views.route('/update-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
-def update_post(id):
-    posts = Post.query.filter_by(id=id).first() # The post to check is the post with the id in parameters
-    if posts.author != current_user: # Only authors can update
-        flash("You havn\'t the permission", category='error')
-    form = PostForm()
-    if form.validate_on_submit():
-        posts.text = form.text.data
-        db.session.commit() # Refresh the database with the updated post
-        flash("Post has been updated", category='success')
-        return redirect(url_for('post', post_id=posts.id)) # Redirection to the post page
-    elif request.method == 'GET':
-        form.text.data = posts.text
-    
-    return render_template('posts.html', user=current_user, posts=posts) # Print the post html page
+def update_post(post_id):
+    post = Post.query.get(post_id)
+    if request.method == 'POST':
+        post.text = request.form['text']
+        if not post.text: # If the text is empty
+            flash("Post cannot be empty", category='error')
+        else:
+            db.session.commit()
+            flash("Post updated!", category='success')
+            return redirect(url_for('views.home'))
+    return render_template("update_post.html", user=current_user, post=post)
 
 
 # Delete a post
