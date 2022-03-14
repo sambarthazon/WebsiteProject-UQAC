@@ -47,14 +47,12 @@
           <div class="card-text" style="color: #ffffff;">{{post.text}}</div>
           <br />
           <div class="collapse" id="comments-{{post.id}}">
-            <div class="card">
+            <div class="card bg-dark">
               <div class="card-body" id="comments-expanded-{{post.id}}">
                 {% for comment in post.comments %}
                 <div class="d-flex justify-content-between align-items-center">
-                  <div>
-                    <a href="/posts/{{comment.user.username}}"
-                      >{{comment.user.username}}</a
-                    >: {{comment.text}}
+                  <div style="color:#ffffff;">
+                    <a href="/posts/{{comment.user.username}}" style="color: primary;">{{comment.user.username}}</a>: {{comment.text}}
                   </div>
                   <div>
                     <small class="text-muted"> {{comment.date_created}}</small>
