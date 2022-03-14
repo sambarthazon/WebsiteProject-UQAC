@@ -61,3 +61,8 @@ Exemple :
     create user -> #3 username2
 
 Un like et un commentaire d'un post seront conservé même lors de la suppression d'un post. Lorsque nous recréerons un post aillant le même post.id, il aura les likes et commentaires de l'ancien post.
+
+
+## Disfonctionnement de l'application
+
+Possibilité de créer une page d'erreur en étant sur le compte de l'admin (donc l'utilisateur avec le username 'Admin') et edit un user existant avec le username ou l'email d'un utilisateur existant.
