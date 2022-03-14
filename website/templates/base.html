@@ -17,8 +17,8 @@
     ></script>
     <title>{% block title %}SpotiNyk{% endblock %}</title>
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <body style="background-color:#198754;">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="{{url_for('views.home')}}"> SpotiNyk </a>
         <button
@@ -32,15 +32,31 @@
         <div class="collapse navbar-collapse" id="navbar">
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/home">Home</a>
-            {% if user.username == 'Admin1'%}
-            <a class="nav-item nav-link" href="/logout">Logout</a>
-            <a class="nav-item nav-link"> Log as {{current_user.username}} </a>
+            {% if current_user.is_authenticated and user.username == 'Admin'%}
             <a class="nav-item nav-link" href="{{url_for('users.index', user_id=user.id)}}">Users</a>
-            {% elif user.is_authenticated %}
-            <a class="nav-item nav-link" href="/logout">Logout</a>
-            <a class="nav-item nav-link" href="{{url_for('users.show', user_id=user.id)}}">
-              Log as {{current_user.username}}
-            </a> 
+            <ul class="navbar-nav mr-auto me-5 ms-2 mb-md-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{current_user.username}}
+                </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('users.show', user_id=current_user.id) }}">Info</a></li>
+                    <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a></li>
+                  </ul>
+              </li>
+            </ul>
+            {% elif current_user.is_authenticated %}
+              <ul class="navbar-nav mr-auto me-5 ms-2 mb-md-0">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{current_user.username}}
+                  </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{{ url_for('users.show', user_id=current_user.id) }}">Info</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a></li>
+                    </ul>
+                </li>
+              </ul>
             {% else %}
             <a class="nav-item nav-link" href="/login">Login</a>
             <a class="nav-item nav-link" href="/sign-up">Sign Up</a>
