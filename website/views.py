@@ -4,7 +4,6 @@ from .forms import PostForm
 from .models import Post, User, Comment, Like
 from . import db
 
-
 views = Blueprint("views", __name__)
 
 
@@ -16,7 +15,7 @@ def home():
 
 
 # Create a post
-@views.route('/create-post', methods=['GET', 'POST'])
+@views.route('/post/create', methods=['GET', 'POST'])
 @login_required
 def create_post():
     if request.method == 'POST':
@@ -34,8 +33,8 @@ def create_post():
     return render_template('create_post.html', user=current_user) # Print the create post html page
 
 
-# Update a post (unfunctional)
-@views.route('/update-post/<int:post_id>', methods=['GET', 'POST'])
+# Update a post
+views.route('/post/update/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def update_post(post_id):
     post = Post.query.get(post_id)
@@ -51,7 +50,7 @@ def update_post(post_id):
 
 
 # Delete a post
-@views.route('/delete-post/<id>')
+@views.route('/post/delete/<id>')
 @login_required
 def delete_post(id):
     post = Post.query.filter_by(id=id).first() # The post to check is the post with the id in parameter
@@ -62,7 +61,7 @@ def delete_post(id):
 
 
 # User's posts
-@views.route('/posts/<username>')
+@views.route('/posts/show/<username>')
 def posts(username):
     user = User.query.filter_by(username=username).first() # The user to check is the user with the username in parameter
 
@@ -75,7 +74,7 @@ def posts(username):
 
 
 # Create a comment in a post
-@views.route('/create-comment/<post_id>', methods=['POST'])
+@views.route('/post/create/comment/<post_id>', methods=['POST'])
 @login_required
 def create_comment(post_id):
     text = request.form.get('text') # We want a text in the comment section
@@ -95,7 +94,7 @@ def create_comment(post_id):
 
 
 # Delete a comment from a post
-@views.route('/delete-comment/<comment_id>')
+@views.route('/post/delete/comment/<comment_id>')
 @login_required
 def delete_comment(comment_id):
     comment = Comment.query.filter_by(id=comment_id).first() # The comment to check is the comment with the comment_id in parameter
@@ -111,8 +110,9 @@ def delete_comment(comment_id):
     return redirect(url_for('views.home')) # Redirection to the home page
 
 
+
 # Like a post
-@views.route('/like-post/<post_id>', methods=['POST'])
+@views.route('/post/like/<post_id>', methods=['POST'])
 @login_required
 def like(post_id):
     post = Post.query.filter_by(id=post_id).first() # The post to check is the post with the id in parameter
