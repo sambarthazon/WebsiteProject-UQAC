@@ -9,7 +9,7 @@
       {% for post in posts %}
       <div class="shadow p-3 mb-5 bg-dark rounded card border-dark">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <a href="/posts/{{post.user.username}}" style="color: #ffffff;">{{post.user.username}}</a>
+          <a href="/posts/show/{{post.user.username}}" style="color: #ffffff;">{{post.user.username}}</a>
           <div style="color:#ffffff;">
             <span id="likes-count-{{post.id}}">
             {{ post.likes|length }}</span> 
@@ -26,7 +26,7 @@
               onclick="like({{post.id}})"
             ></i>
             {% endif %}
-            {% if user.id == post.author or user.username == 'Admin' %}
+            {% if user.id == post.author or user.username == 'Admin' or user.promute == 1%}
             <div class="btn-group">
               <button
                 type="button"
@@ -35,8 +35,8 @@
               ></button>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="/delete-post/{{post.id}}" class="dropdown-item">Delete</a>
-                  <a href="/update-post/{{post.id}}" class="dropdown-item">Update</a>
+                  <a href="/post/update/{{post.id}}" class="dropdown-item">Update</a>
+                  <a href="/post/delete/{{post.id}}" class="dropdown-item">Delete</a>
                 </li>
               </ul>
             </div>
@@ -52,7 +52,7 @@
                 {% for comment in post.comments %}
                 <div class="d-flex justify-content-between align-items-center">
                   <div style="color:#ffffff;">
-                    <a href="/posts/{{comment.user.username}}" style="color: primary;">{{comment.user.username}}</a>: {{comment.text}}
+                    <a href="/posts/show/{{comment.user.username}}" style="color: primary;">{{comment.user.username}}</a>: {{comment.text}}
                   </div>
                   <div>
                     <small class="text-muted"> {{comment.date_created}}</small>
@@ -65,7 +65,7 @@
                       ></button>
                       <ul class="dropdown-menu">
                         <li>
-                          <a href="/delete-comment/{{comment.id}}" class="dropdown-item">Delete</a>
+                          <a href="/post/delete/comment/{{comment.id}}" class="dropdown-item">Delete</a>
                         </li>
                       </ul>
                     </div>
@@ -88,7 +88,7 @@
           <form
             class="input-group mb-3"
             method="POST"
-            action="/create-comment/{{post.id}}"
+            action="/post/create/comment/{{post.id}}"
           >
             <input
               type="text"
@@ -107,7 +107,7 @@
     </div>
     {% block footer %}
     <div align="right">
-      <a href="/create-post">
+      <a href='/post/create'>
         <button type="button" class="btn btn-dark btn-lg">
           Create a Post
         </button>
@@ -115,4 +115,3 @@
     </div>
     {% endblock %}
 {% endblock %}
-    
