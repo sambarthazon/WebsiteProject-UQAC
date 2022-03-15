@@ -17,9 +17,10 @@ def create_app():
     db.init_app(app) # Application's database initialisation
     migrate.init_app(app, db)
 
-    from .users import users
+
     from .views import views
     from .auth import auth
+    from .users import users
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
