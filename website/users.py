@@ -1,4 +1,5 @@
 from calendar import c
+from crypt import methods
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user
 from website.models import User
@@ -10,14 +11,14 @@ from werkzeug.security import generate_password_hash
 users = Blueprint("users", __name__)
 
 
-@users.route('/list')
+@users.route('/users/list')
 @login_required
 def index():
     user = User.query.all()
     return render_template('list_users.html', user=user)
 
 
-@users.route('/create', methods=['GET', 'POST'])
+@users.route('/user/create', methods=['GET', 'POST'])
 @login_required
 def create():
     if request.method == 'POST':
@@ -59,7 +60,7 @@ def create():
     return render_template('create_user.html', user=current_user) # Print the sign-up html page
 
 
-@users.route('/show/<int:user_id>')
+@users.route('/user/show/<int:user_id>')
 @login_required
 def show(user_id):
     user = User.query.get(user_id)
@@ -67,7 +68,7 @@ def show(user_id):
     return render_template('show_user.html', user=user)
 
 
-@users.route('/update/<int:user_id>', methods=['GET', 'POST'])
+@users.route('/user/update/<int:user_id>', methods=['GET', 'POST'])
 @login_required
 def update(user_id):
     user = User.query.get(user_id)
@@ -80,7 +81,7 @@ def update(user_id):
     return render_template('update_user.html', user=user)
 
 
-@users.route('/destroy/<int:user_id>', methods=['GET', 'POST'])
+@users.route('/user/destroy/<int:user_id>', methods=['GET', 'POST'])
 @login_required
 def destroy(user_id):
     user = User.query.get(user_id)
@@ -88,4 +89,15 @@ def destroy(user_id):
         db.session.delete(user)
         db.session.commit()
         flash("User " + user.username + " has been deleted!", category='success')
+    return redirect(url_for('users.index'))
+
+
+@users.route('/user/promute/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def promute(user_id):
+    user = User.query.get(user_id)
+    if request.method == 'POST':
+        user.promute = True
+        db.session.commit()
+        flash("User " + user.username + " has been promuted!", category='success')
     return redirect(url_for('users.index'))
