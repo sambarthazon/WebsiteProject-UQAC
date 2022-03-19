@@ -4,7 +4,7 @@ from flask import request
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from werkzeug.security import generate_password_hash
+import datetime
 
 app = Flask(__name__) # Flask application
 
@@ -26,9 +26,12 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(users, url_prefix='/')
 
-    from .models import User, Post, Comment, Like
+    from .models import User
 
     create_database(app) # Create database
+    # admin = User(email='admin@admin.com', username='admin', password='admin', date_created=datetime.datetime.now(), role='admin')
+    # db.session.add(admin)
+    # db.session.commit()
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
