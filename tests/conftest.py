@@ -1,12 +1,16 @@
 import pytest
 from website import create_app
-from website.models import User
 
 
 
 @pytest.fixture(scope="module")
 def app():
     return create_app()
+
+
+@pytest.fixture(scope="module")
+def config():
+    assert config["DEBUG"] is True
 
 
 # @pytest.fixture(scope='module')
