@@ -26,7 +26,7 @@
               onclick="like({{post.id}})"
             ></i>
             {% endif %}
-            {% if user.id == post.author or user.username == 'Admin' or user.promute == 1%}
+            {% if user.id == post.author or user.username == 'Admin'%}
             <div class="btn-group">
               <button
                 type="button"
