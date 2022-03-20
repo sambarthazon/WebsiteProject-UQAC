@@ -5,9 +5,11 @@ from .models import Post, User, Comment, Like
 from . import db
 
 
+# Blueprint of views
 views = Blueprint("views", __name__)
 
 
+# Home page
 @views.route('/')
 @views.route('/home')
 def home():
@@ -44,10 +46,11 @@ def update_post(post_id):
         if not post.text: # If the text is empty
             flash("Post cannot be empty", category='error')
         else:
-            db.session.commit()
+            db.session.commit() # Refresh the database
             flash("Post updated!", category='success')
-            return redirect(url_for('views.home'))
-    return render_template("update_post.html", user=current_user, post=post)
+            return redirect(url_for('views.home')) # Redirection to the home page
+        
+    return render_template("update_post.html", user=current_user, post=post) # Print the update post html page
 
 
 # Delete a post
