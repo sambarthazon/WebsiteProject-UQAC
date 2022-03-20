@@ -26,7 +26,7 @@
               onclick="like({{post.id}})"
             ></i>
             {% endif %}
-            {% if user.id == post.author or user.username == 'Admin' %}
+            {% if user.id == post.author or user.role == 'admin' %}
             <div class="btn-group">
               <button
                 type="button"
@@ -58,7 +58,7 @@
                   </div>
                   <div>
                     <small class="text-muted"> {{comment.date_created}}</small>
-                    {% if user.id == comment.author or user.id == post.author or user.username == 'Admin'%}
+                    {% if user.id == comment.author or user.id == post.author or user.role == 'admin'%}
                     <div class="btn-group">
                       <button
                         type="button"
