@@ -2,7 +2,7 @@ function like(postId) {
     const likeCount = document.getElementById(`likes-count-${postId}`); // Counter of likes
     const likeButton = document.getElementById(`like-button-${postId}`); // Button of likes
   
-    fetch(`/like-post/${postId}`, { method: "POST" }) // Actions on the post which have this post id
+    fetch(`/post/like/${postId}`, { method: "POST" }) // Actions on the post which have this post id
       .then((res) => res.json())
       .then((data) => {
         likeCount.innerHTML = data["likes"];
