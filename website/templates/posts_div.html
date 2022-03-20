@@ -51,8 +51,15 @@
               <div class="card-body" id="comments-expanded-{{post.id}}">
                 {% for comment in post.comments %}
                 <div class="d-flex justify-content-between align-items-center">
+<<<<<<< HEAD
                   <div style="color:#ffffff;">
                     <a href="/posts/show/{{comment.user.username}}" style="color: primary;">{{comment.user.username}}</a>: {{comment.text}}
+=======
+                  <div>
+                    <a href="/posts/show/{{comment.user.username}}"
+                      >{{comment.user.username}}</a
+                    >: {{comment.text}}
+>>>>>>> newDev
                   </div>
                   <div>
                     <small class="text-muted"> {{comment.date_created}}</small>
@@ -107,7 +114,11 @@
     </div>
     {% block footer %}
     <div align="right">
+<<<<<<< HEAD
       <a href='/post/create'>
+=======
+      <a href="/post/create">
+>>>>>>> newDev
         <button type="button" class="btn btn-dark btn-lg">
           Create a Post
         </button>
