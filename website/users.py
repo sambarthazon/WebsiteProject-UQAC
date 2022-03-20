@@ -49,8 +49,9 @@ def create():
             flash("Password is too short.", category='error')
         elif len(email) < 4:
             flash("Email is invalid.", category='error')
-        elif username == 'Admin1':
+        elif username == 'Admin':
             admin = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'))
+            admin.role = 'admin'
             db.session.add(admin)
             db.session.commit()
             login_user(admin, remember=True) # Log in as this user when he was registered
@@ -84,9 +85,13 @@ def update(user_id):
     if request.method == 'POST':
         user.username = request.form['username']
         user.email = request.form['email']
-        db.session.commit() # Refresh the database
-        flash("User " + user.username + " has been updated", category='success')
-        return redirect(url_for('users.index'))  # Redirection to the home page
+        user.role = request.form['role']
+        if user.role == 'admin' or user.role == 'reader':
+            db.session.commit() # Refresh the database
+            flash("User " + user.username + " has been updated", category='success')
+            return redirect(url_for('users.index'))  # Redirection to the home page
+        else:
+            flash("Incorrect role", category="error")
     
     return render_template('update_user.html', user=user) # Print the update user html page
 
@@ -101,3 +106,15 @@ def destroy(user_id):
         db.session.commit() # Refresh the database
         flash("User " + user.username + " has been deleted!", category='success')
     return redirect(url_for('users.index'))  # Redirection to the home page
+
+
+# Promute a user
+@users.route('/user/promute/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def promute(user_id):
+    user = User.query.get(user_id)
+    if request.method == 'POST':
+        user.role = 'admin'
+        db.session.commit()
+        flash("User " + user.username + " has been promuted!", category='success')
+    return redirect(url_for('users.index'))
