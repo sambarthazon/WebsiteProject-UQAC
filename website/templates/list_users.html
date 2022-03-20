@@ -39,12 +39,6 @@
                     role="button">
                         Edit
                 </a>
-                <a href="{{url_for('users.promute', user_id=eachUser.id)}}"
-                    method="POST"
-                    class="btn btn-outline-primary"
-                    role="button">
-                        Promute
-                </a>
                 <button type="submit"
                     action="{{url_for('users.destroy', user_id=eachUser.id)}}"
                     method="POST"
