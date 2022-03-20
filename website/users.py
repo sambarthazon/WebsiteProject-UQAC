@@ -23,7 +23,7 @@ def index():
     return render_template('list_users.html', user=user)
 
 
-# Create user
+# Create new user
 @users.route('/user/create', methods=['GET', 'POST'])
 @login_required
 def create():
