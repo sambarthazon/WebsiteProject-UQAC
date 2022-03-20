@@ -40,7 +40,7 @@
                   {{current_user.username}}
                 </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{{ url_for('users.show', user_id=current_user.id) }}">Info</a></li>
+                    <li><a class="dropdown-item" href="{{url_for('users.show', user_id=current_user.id)}}">Info</a></li>
                     <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a></li>
                   </ul>
               </li>
@@ -52,7 +52,7 @@
                     {{current_user.username}}
                   </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="{{ url_for('users.show', user_id=current_user.id) }}">Info</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('users.show', user_id=current_user.id)}}">Info</a></li>
                       <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a></li>
                     </ul>
                 </li>
@@ -102,7 +102,7 @@
     ></script>
     <script
       type="text/javascript"
-      src="{{ url_for('static', filename='index.js')}}"
+      src="{{url_for('static', filename='index.js')}}"
     ></script>
   </body>
 </div>
