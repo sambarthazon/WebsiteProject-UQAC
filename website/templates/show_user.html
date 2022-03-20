@@ -6,7 +6,7 @@
         <h1 class="mt-5">User's informations</h1>
     </div>
     <div class="col text-end">
-        {% if user.username == 'Admin' %}
+        {% if user.role == 'admin' %}
             <a class="btn btn-dark mt-5" href="/users/list">Back</a>
         {% else %}
             <a class="btn btn-dark mt-5" href="{{url_for('views.home')}}">Back</a>
@@ -21,6 +21,11 @@
 <div class="row">
     <div class="col lead">
         <strong>Email:</strong> {{user.email}}
+    </div>
+</div>
+<div class="row">
+    <div class="col lead">
+        <strong>Role:</strong> {{user.role}}
     </div>
 </div>
 {% endblock %}
