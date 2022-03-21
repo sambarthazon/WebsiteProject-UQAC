@@ -50,7 +50,6 @@ Vidéos :
 
 ## Fonctionnement de l'application
 
-L'admin est un utilisateur lamdba, sa seule caractéristique est qu'il doit avoir son username = 'Admin' ce qui lui permet plus d'accessibilité.
-Ce problème peut être contré en aillant une database de base avec un utilisateur aillant le username 'Admin'.
+Le premier admin doit être créé avec un username = 'Admin'. Ce dernier pourra par la suite promouvoir les utilisateurs qu'il voudra.
 
 Un like et un commentaire d'un post seront conservé même lors de la suppression d'un post. Lorsque nous recréerons un post aillant le même post.id, il aura les likes et commentaires de l'ancien post.
