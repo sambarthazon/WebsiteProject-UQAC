@@ -5,7 +5,7 @@
     {% if current_user.is_authenticated and (username == user.username or user.role == 'admin')%}
     <div align="right">
         <a href="{{url_for('views.posts_draft', username=username)}}">
-        <button type="button" class="btn btn-dark">My draft posts</button>
+        <button type="button" class="btn btn-dark">Draft posts</button>
         </a>
     </div>
     {% endif %}
