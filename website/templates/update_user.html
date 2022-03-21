@@ -22,9 +22,15 @@
         <select name="role">
         {% if user.role == 'admin' %}
             <option value="admin">Admin</option>
+            <option value="author">Author</option>
             <option value="reader">Reader</option>
+        {% elif user.role == 'author' %}
+            <option value="author">Author</option>
+            <option value="reader">Reader</option>
+            <option value="admin">Admin</option>
         {% else %}
             <option value="reader">Reader</option>
+            <option value="author">Author</option>
             <option value="admin">Admin</option>
         {% endif %}
         </select>
