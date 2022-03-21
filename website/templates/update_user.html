@@ -17,8 +17,17 @@
         <input type="email" name="email" class="form-control" id="inputEmail" value="{{user.email}}">
     </div>
     <div class="mb-3">
-        <label for="role" class="form-label">Role</label>
-        <input type="text" name="role" class="form-control" id="inputRole" value="{{user.role}}">
+        <label>Choose a role:</label>
+        <br />
+        <select name="role">
+        {% if user.role == 'admin' %}
+            <option value="admin">Admin</option>
+            <option value="reader">Reader</option>
+        {% else %}
+            <option value="reader">Reader</option>
+            <option value="admin">Admin</option>
+        {% endif %}
+        </select>
     </div>
     <div align="right">
         <a href="/users/list"><button type="button" class="btn btn-dark">Back</button></a>
