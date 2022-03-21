@@ -13,12 +13,12 @@ views = Blueprint("views", __name__)
 @views.route('/')
 @views.route('/home')
 def home():
-    posts = Post.query.all() 
+    posts = Post.query.all()
     return render_template('home.html', user=current_user, posts=posts)
 
 
 # Create a post
-@views.route('/post/create', methods=['GET', 'POST'])
+@views.route('/post/create/public', methods=['GET', 'POST'])
 @login_required
 def create_post():
     if request.method == 'POST':
@@ -36,6 +36,30 @@ def create_post():
     return render_template('create_post.html', user=current_user) # Print the create post html page
 
 
+
+@views.route('/post/public/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def to_public(post_id):
+    post = Post.query.get(post_id)
+    post.visibility = 'public'
+    db.session.commit()
+    flash("Post drafted!", category='success')
+        
+    return redirect(url_for('views.home')) # Redirection to the home page
+
+
+
+@views.route('/post/draft/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def to_draft(post_id):
+    post = Post.query.get(post_id)
+    post.visibility = 'draft'
+    db.session.commit()
+    flash("Post drafted!", category='success')
+        
+    return redirect(url_for('views.home')) # Redirection to the home page
+    
+
 # Update a post (unfunctional)
 @views.route('/post/update/<int:post_id>', methods=['GET', 'POST'])
 @login_required
@@ -51,6 +75,7 @@ def update_post(post_id):
             return redirect(url_for('views.home')) # Redirection to the home page
         
     return render_template("update_post.html", user=current_user, post=post) # Print the update post html page
+
 
 
 # Delete a post
@@ -75,6 +100,20 @@ def posts(username):
 
     posts = user.posts # Take all the user's posts
     return render_template('posts.html', user=current_user, posts=posts, username=username) # Print the posts html page with his posts
+
+
+
+@views.route('/posts/show/draft/<username>')
+def posts_draft(username):
+    user = User.query.filter_by(username=username).first() # The user to check is the user with the username in parameter
+
+    if not user:
+        flash("No user with that username exists.", category='error')
+        return redirect(url_for('views.home')) # Redirection to the home page
+
+    posts = user.posts # Take all the user's posts
+    return render_template('posts_draft.html', user=current_user, posts=posts, username=username) # Print the posts html page with his posts
+
 
 
 # Create a comment in a post
