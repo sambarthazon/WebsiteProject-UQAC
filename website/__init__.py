@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash
 app = Flask(__name__) # Flask application
 
 db = SQLAlchemy(app) # db will be a type of database (SQLAlchemy)
-DB_NAME = "database.db"
+DB_NAME = "database.db" # Database's name
 
 migrate = Migrate(app, db)
 
