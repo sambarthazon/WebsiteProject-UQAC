@@ -86,12 +86,9 @@ def update(user_id):
         user.username = request.form['username']
         user.email = request.form['email']
         user.role = request.form['role']
-        if user.role == 'admin' or user.role == 'reader':
-            db.session.commit() # Refresh the database
-            flash("User " + user.username + " has been updated", category='success')
-            return redirect(url_for('users.index'))  # Redirection to the home page
-        else:
-            flash("Incorrect role", category="error")
+        db.session.commit() # Refresh the database
+        flash("User " + user.username + " has been updated", category='success')
+        return redirect(url_for('users.index'))  # Redirection to the home page
     
     return render_template('update_user.html', user=user) # Print the update user html page
 
