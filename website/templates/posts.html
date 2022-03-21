@@ -5,7 +5,7 @@
     {% if current_user.is_authenticated %}
     <div align="right">
         <a href="{{url_for('views.posts_draft', username=user.username)}}">
-        <button type="button" class="btn btn-dark">My Draft</button>
+        <button type="button" class="btn btn-dark">My draft posts</button>
         </a>
     </div>
     {% endif %}
