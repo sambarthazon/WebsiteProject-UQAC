@@ -102,7 +102,7 @@ def posts(username):
     return render_template('posts.html', user=current_user, posts=posts, username=username) # Print the posts html page with his posts
 
 
-
+# Show all draft posts
 @views.route('/posts/show/draft/<username>')
 def posts_draft(username):
     user = User.query.filter_by(username=username).first() # The user to check is the user with the username in parameter
