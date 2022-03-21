@@ -120,6 +120,7 @@
       {% endfor %}
     </div>
     {% block footer %}
+    {% if current_user.role == 'author' or current_user.role == 'admin' %}
     <div align="right">
       <a href="/post/create/public">
         <button type="button" class="btn btn-dark btn-lg">
@@ -127,6 +128,7 @@
         </button>
       </a>
     </div>
+    {% endif %}
     {% endblock %}
 {% endblock %}
     
