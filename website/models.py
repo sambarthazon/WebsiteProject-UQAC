@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 from werkzeug.security import generate_password_hash
 
 
-# Users are define by an id, email, username, password, date_created, posts, comments and likes
+# Users are define by an id, email, username, password, date_created, posts, role, comments and likes
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     likes = db.relationship('Like', backref='user', passive_deletes=True)
 
 
-# Posts are define by an id, text, date_created, author, comments and likes
+# Posts are define by an id, text, date_created, author, visibility, comments and likes
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)

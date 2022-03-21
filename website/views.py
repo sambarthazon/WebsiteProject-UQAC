@@ -36,25 +36,25 @@ def create_post():
     return render_template('create_post.html', user=current_user) # Print the create post html page
 
 
-
+# Draft post to public post
 @views.route('/post/public/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def to_public(post_id):
     post = Post.query.get(post_id)
-    post.visibility = 'public'
-    db.session.commit()
+    post.visibility = 'public' # Change visibility of the post
+    db.session.commit() # Refresh the database
     flash("Post drafted!", category='success')
         
     return redirect(url_for('views.home')) # Redirection to the home page
 
 
-
+# Public post to draft post
 @views.route('/post/draft/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def to_draft(post_id):
     post = Post.query.get(post_id)
-    post.visibility = 'draft'
-    db.session.commit()
+    post.visibility = 'draft' # Change visibility of the post
+    db.session.commit() # Refresh the database
     flash("Post drafted!", category='success')
         
     return redirect(url_for('views.home')) # Redirection to the home page
