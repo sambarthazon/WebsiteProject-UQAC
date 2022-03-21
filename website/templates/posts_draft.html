@@ -1,13 +1,11 @@
-{% extends "posts_div.html" %}
+{% extends "posts_div_draft.html" %}
 {% block title %}{{username}}'s Posts{% endblock%}
 {% block header %} {{username}}'s posts {% endblock %}
 {% block footer %}
-{% if current_user.is_authenticated %}
-<a href="{{url_for('views.posts_draft', username=user.username)}}">
-    <button type="button" class="btn btn-dark">My Draft</button>
-</a>
-{% endif %}
     <div align="right">
+        <a href="{{url_for('views.posts', username=user.username)}}">
+            <button type="button" class="btn btn-dark">Public</button>
+        </a>
         <a href="/home">
             <button type="button" class="btn btn-dark">Back</button>
         </a>
