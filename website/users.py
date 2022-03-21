@@ -103,15 +103,3 @@ def destroy(user_id):
         db.session.commit() # Refresh the database
         flash("User " + user.username + " has been deleted!", category='success')
     return redirect(url_for('users.index'))  # Redirection to the home page
-
-
-# Promute a user
-@users.route('/user/promute/<int:user_id>', methods=['GET', 'POST'])
-@login_required
-def promute(user_id):
-    user = User.query.get(user_id)
-    if request.method == 'POST':
-        user.role = 'admin'
-        db.session.commit()
-        flash("User " + user.username + " has been promuted!", category='success')
-    return redirect(url_for('users.index'))
