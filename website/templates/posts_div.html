@@ -7,9 +7,11 @@
     <br />
     <div id="posts">
       {% for post in posts %}
+      {% if post.visibility == 'public' %}
       <div class="shadow p-3 mb-5 bg-dark rounded card border-dark">
         <div class="card-header d-flex justify-content-between align-items-center">
           <a href="/posts/show/{{post.user.username}}" style="color: #ffffff;">{{post.user.username}}</a>
+          <a style="color: #ffffff;">{{post.visibility}}</a>
           <div style="color:#ffffff;">
             <span id="likes-count-{{post.id}}">
             {{ post.likes|length }}</span> 
@@ -35,6 +37,11 @@
               ></button>
               <ul class="dropdown-menu">
                 <li>
+                  {% if post.visibility == 'public' %}
+                    <a href="/post/draft/{{post.id}}" class="dropdown-item">To draft</a>
+                  {% else %}
+                    <a href="/post/public/{{post.id}}" class="dropdown-item">To public</a>
+                  {% endif %}
                   <a href="/post/update/{{post.id}}" class="dropdown-item">Update</a>
                   <a href="/post/delete/{{post.id}}" class="dropdown-item">Delete</a>
                 </li>
@@ -105,13 +112,14 @@
         <div class="card-footer text-muted">{{post.date_created}}</div>
       </div>
       <br/ >
+      {% endif %}
       {% endfor %}
     </div>
     {% block footer %}
     <div align="right">
-      <a href="/post/create">
+      <a href="/post/create/public">
         <button type="button" class="btn btn-dark btn-lg">
-          Create a Post
+          Create a public post
         </button>
       </a>
     </div>
