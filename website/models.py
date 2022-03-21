@@ -24,8 +24,8 @@ class Post(db.Model):
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     author = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
     visibility = db.Column(db.String(150), default='public')
-    comments = db.relationship('Comment', backref='post', passive_deletes=True)
-    likes = db.relationship('Like', backref='post', passive_deletes=True)
+    comments = db.relationship('Comment', cascade='all, delete', backref='post', passive_deletes=True)
+    likes = db.relationship('Like', cascade='all, delete', backref='post', passive_deletes=True)
 
 
 # Comments are define by an id, text, date_created,author and post_id
