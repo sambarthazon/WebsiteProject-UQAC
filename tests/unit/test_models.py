@@ -25,3 +25,6 @@ def test_new_like():
     like = Like(author='patoche', post_id='2')
     assert like.author == 'patoche'
     assert like.post_id != '3'
+
+
+# Tester le login (avec flask_login)
