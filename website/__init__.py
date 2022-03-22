@@ -9,6 +9,7 @@ import datetime
 app = Flask(__name__) # Flask application
 
 db = SQLAlchemy(app) # db will be a type of database (SQLAlchemy)
+DB_NAME = "database.db" # Database's name
 
 migrate = Migrate(app, db)
 
@@ -45,6 +46,6 @@ def create_app():
 
 
 def create_database(app):
-    if not path.exists('website/'): # If database doesn't exist create it 
+    if not path.exists('website/' + DB_NAME): # If database doesn't exist create it 
         db.create_all(app=app)
         print("Created database!")

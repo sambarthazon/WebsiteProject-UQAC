@@ -2,29 +2,32 @@
 {% block title %}User{% endblock %}
 {% block content %}
 <div class="row">
-    <div class="col">
-        <h1 class="mt-5">User's informations</h1>
-    </div>
-    <div class="col text-end">
-<<<<<<< HEAD
-        <a class="btn btn-dark mt-5" href="{{url_for('views.home')}}">Back</a>
-=======
-        {% if user.username == 'Admin' %}
-            <a class="btn btn-dark mt-5" href="/users/list">Back</a>
-        {% else %}
-            <a class="btn btn-dark mt-5" href="{{url_for('views.home')}}">Back</a>
-        {% endif %}
->>>>>>> newDev
-    </div>
+  <div class="col">
+    <h1 class="mt-5">{{user.username}}'s informations</h1>
+  </div>
+  <div class="col text-end">
+    {% if current_user.role == 'admin' %}
+      <a class="btn btn-dark mt-5" href="/users/list">Back</a>
+    {% else %}
+      <a class="btn btn-dark mt-5" href="{{url_for('views.home')}}">Back</a>
+    {% endif %}
+  </div>
 </div>
-<div class="row">
-    <div class="col lead">
-        <strong>Username:</strong> {{user.username}}
-    </div>
-</div>
-<div class="row">
-    <div class="col lead">
-        <strong>Email:</strong> {{user.email}}
-    </div>
-</div>
+<br />
+<table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">{{user.username}}</th>
+      </tr>
+      <tr class="table-active">
+        <th scope="col">Email</th>
+        <th scope="col">{{user.email}}</th>
+      </tr>
+      <tr>
+        <th scope="col">Role</th>
+        <th scope="col">{{user.role}}</th>
+      </tr>
+    </thead>
+</table>
 {% endblock %}

@@ -49,8 +49,9 @@ def create():
             flash("Password is too short.", category='error')
         elif len(email) < 4:
             flash("Email is invalid.", category='error')
-        elif username == 'Admin1':
+        elif username == 'Admin':
             admin = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'))
+            admin.role = 'admin'
             db.session.add(admin)
             db.session.commit()
             login_user(admin, remember=True) # Log in as this user when he was registered
@@ -84,6 +85,7 @@ def update(user_id):
     if request.method == 'POST':
         user.username = request.form['username']
         user.email = request.form['email']
+        user.role = request.form['role']
         db.session.commit() # Refresh the database
         flash("User " + user.username + " has been updated", category='success')
         return redirect(url_for('users.index'))  # Redirection to the home page

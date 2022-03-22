@@ -5,6 +5,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+# Blueprint of auth
 auth = Blueprint("auth", __name__)
 
 
@@ -53,8 +54,9 @@ def sign_up():
             flash("Password is too short.", category='error')
         elif len(email) < 4:
             flash("Email is invalid.", category='error')
-        elif username == 'Admin1':
+        elif username == 'Admin':
             admin = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'))
+            admin.role = 'admin'
             db.session.add(admin)
             db.session.commit()
             login_user(admin, remember=True) # Log in as this user when he was registered
