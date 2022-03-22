@@ -86,6 +86,7 @@ def update(user_id):
         user.username = request.form['username']
         user.email = request.form['email']
         user.role = request.form['role']
+        
         db.session.commit() # Refresh the database
         flash("User " + user.username + " has been updated", category='success')
         return redirect(url_for('users.index'))  # Redirection to the home page
