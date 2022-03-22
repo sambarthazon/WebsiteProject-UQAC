@@ -4,7 +4,7 @@
     <br />
     <h1 align="center">Make a Post</h1>
     <br />
-    
+    {% if user.role == 'admin' or user.role == 'author' %}
     <form method="POST">
       <textarea name="text" id="text" class="form-control"></textarea>
       <br />
@@ -13,5 +13,8 @@
         <button type="submit" class="btn btn-dark">Post</button>
       </div>
     </form>
+    {% else %}
+      <p> No access for you </p>
+    {% endif %}
     <br />
 {% endblock %}
