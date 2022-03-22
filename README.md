@@ -41,6 +41,7 @@ Sites :
 - https://flask.palletsprojects.com/en/2.0.x/tutorial/
 - https://flask.palletsprojects.com/en/2.0.x/testing/
 - https://flask.palletsprojects.com/en/2.0.x/tutorial/tests/
+- https://getbootstrap.com/docs/4.0/components/navbar/
 
 Vidéos :
 - https://www.youtube.com/watch?v=dam0GPOAvVI : Tech With Tim
@@ -52,4 +53,12 @@ Vidéos :
 
 Le premier admin doit être créé avec un username = 'Admin'. Ce dernier pourra par la suite promouvoir les utilisateurs qu'il voudra.
 
-Un like et un commentaire d'un post seront conservé même lors de la suppression d'un post. Lorsque nous recréerons un post aillant le même post.id, il aura les likes et commentaires de l'ancien post.
+
+## Disfonctionnement de l'application
+
+- Possibilité de créer une page d'erreur en éditant un user existant avec le username ou l'email d'un autre utilisateur existant.
+
+- Un like et un commentaire d'un post seront conservé même lors de la suppression d'un post. Lorsque nous recréerons un post aillant le même post.id, il aura les likes et commentaires de l'ancien post.
+
+- Un utilisateur connaissant les URL peut atteindre les pages qui ne lui sont autorisé comme par exemple avec la page de la liste des utilisateurs.
+Nous avons néanmoins réussi à régler le problème avec la page de création de poste (URL: /post/create/public). Un lecteur rentrant cette URL aura un message comme quoi il n'a pas accés à cette page. Nous devons alors faire cette implémentation sur toutes les pages avec une redirection automatique de l'utilisateur.
