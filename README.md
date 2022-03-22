@@ -1,6 +1,7 @@
 # Flask application
 
 Groupe : GRANES Johann, RIVET Victor, BARTHAZON Sam
+Travail sur le dépôt Moodle de chacune des personnes du groupe
 
 
 ## Conditions préalables:
