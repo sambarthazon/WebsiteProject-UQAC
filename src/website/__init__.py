@@ -4,6 +4,7 @@ from flask import request
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from . import json_serialize
 
 app = Flask(__name__) # Flask application
 
@@ -16,6 +17,7 @@ def create_app():
     app.config.from_object('config.DevConfig')
     db.init_app(app) # Application's database initialisation
     migrate.init_app(app, db)
+    json_serialize.init_app(app)
 
 
     from .views import views
@@ -48,6 +50,6 @@ def create_app():
 
 
 def create_database(app):
-    if not path.exists('website/' + DB_NAME): # If database doesn't exist create it 
+    if not path.exists('src/website/' + DB_NAME): # If database doesn't exist create it 
         db.create_all(app=app)
         print("Created database!")

@@ -4,7 +4,7 @@ WORKDIR /src/website
 
 RUN apk --update --upgrade add --no-cache  gcc musl-dev jpeg-dev zlib-dev libffi-dev cairo-dev pango-dev gdk-pixbuf-dev
 
-RUN python -m pip install --upgrade pip
+RUN python3 -m pip install --upgrade pip
 
 COPY src/requirements.txt requirements.txt
 
@@ -14,4 +14,4 @@ EXPOSE 7007
 
 COPY src .
 
-CMD [ "python", "app.py" ]
+CMD [ "python3", "app.py" ]

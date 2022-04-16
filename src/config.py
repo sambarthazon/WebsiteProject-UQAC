@@ -8,6 +8,8 @@ class Config:
     TEMPLATES_FOLDER = 'templates'
     FLASK_APP = 'app.py'
     SECRET_KEY = "mysecretkey"
+    HOST='0.0.0.0'
+    PORT=7007
 
 
 class ProdConfig(Config):
