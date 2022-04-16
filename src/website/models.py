@@ -1,7 +1,7 @@
 from . import db
+from .json_serialize import ma
 from flask_login import UserMixin
 from sqlalchemy.sql import func
-from werkzeug.security import generate_password_hash
 
 
 # Users are define by an id, email, username, password, date_created, posts, role, comments and likes
@@ -16,6 +16,12 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', backref='user', passive_deletes=True)
     likes = db.relationship('Like', backref='user', passive_deletes=True)
 
+    def to_json(self):
+        return {"id":self.id,
+                "username":self.username,
+                "email":self.email,
+                "role":self.role}
+
 
 # Posts are define by an id, text, date_created, author, visibility, comments and likes
 class Post(db.Model):
@@ -26,6 +32,13 @@ class Post(db.Model):
     visibility = db.Column(db.String(150), default='public')
     comments = db.relationship('Comment', backref='post', passive_deletes=True)
     likes = db.relationship('Like', backref='post', passive_deletes=True)
+
+    def to_json(self):
+        return {"id":self.id,
+                "text":self.text,
+                "date":self.date_created,
+                "author":self.author,
+                "visibility":self.visibility}
 
 
 # Comments are define by an id, text, date_created,author and post_id
@@ -43,3 +56,16 @@ class Like(db.Model):
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     author = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id', ondelete="CASCADE"), nullable=False)
+
+
+class UsersSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'username', 'email', 'role')
+
+users_schema = UsersSchema(many=True)
+
+class PostsSchema(ma.Schema):
+    class Meta:
+        fields =('id', 'text', 'date', 'author', 'visibility')
+
+posts_schema = PostsSchema(many=True)

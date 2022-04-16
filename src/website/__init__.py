@@ -4,7 +4,6 @@ from flask import request
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-import datetime
 
 app = Flask(__name__) # Flask application
 
@@ -22,10 +21,13 @@ def create_app():
     from .views import views
     from .auth import auth
     from .users import users
+    from .api import api_post, api_user
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(users, url_prefix='/')
+    app.register_blueprint(api_user, url_prefix='/api/user')
+    app.register_blueprint(api_post, url_prefix='/api/post')
 
     from .models import User
 
