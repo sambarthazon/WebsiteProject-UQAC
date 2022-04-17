@@ -17,7 +17,7 @@ def create_app():
     app.config.from_object('config.DevConfig')
     db.init_app(app) # Application's database initialisation
     migrate.init_app(app, db)
-    json_serialize.init_app(app)
+    json_serialize.init_app(app) # init Marshmallow
 
 
     from .views import views
@@ -34,9 +34,6 @@ def create_app():
     from .models import User
 
     create_database(app) # Create database
-    # admin = User(email='admin@admin.com', username='admin', password='admin', date_created=datetime.datetime.now(), role='admin')
-    # db.session.add(admin)
-    # db.session.commit()
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', backref='user', passive_deletes=True)
     likes = db.relationship('Like', backref='user', passive_deletes=True)
 
+    # JSON syntax for users
     def to_json(self):
         return {"id":self.id,
                 "username":self.username,
@@ -33,6 +34,7 @@ class Post(db.Model):
     comments = db.relationship('Comment', backref='post', passive_deletes=True)
     likes = db.relationship('Like', backref='post', passive_deletes=True)
 
+    # JSON syntax for posts
     def to_json(self):
         return {"id":self.id,
                 "text":self.text,
@@ -58,12 +60,15 @@ class Like(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id', ondelete="CASCADE"), nullable=False)
 
 
+# Schema for users
 class UsersSchema(ma.Schema):
     class Meta:
         fields = ('id', 'username', 'email', 'role')
 
 users_schema = UsersSchema(many=True)
 
+
+# Schema for posts
 class PostsSchema(ma.Schema):
     class Meta:
         fields =('id', 'text', 'date', 'author', 'visibility')
