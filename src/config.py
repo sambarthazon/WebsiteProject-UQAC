@@ -8,8 +8,8 @@ class Config:
     TEMPLATES_FOLDER = 'templates'
     FLASK_APP = 'app.py'
     SECRET_KEY = "mysecretkey"
-    HOST='0.0.0.0' # Set the host to '0.0.0.0' to don't have the localhost
-    PORT=7007 # Set the port to 7007
+    HOST = '0.0.0.0' # Set the host to '0.0.0.0' to don't have the localhost
+    PORT = 7007 # Set the port to 7007
 
 
 class ProdConfig(Config):
