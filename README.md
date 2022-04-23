@@ -9,32 +9,16 @@ Travail sur le dépôt Moodle de chacune des personnes du groupe
 Vous devez avoir déjà installé :
 - python
 - pip
-- virtualenv
 
 
 ## Mise en place du projet
 
 1. Décompressez le fichier
-2. Allez dans le dossier du projet et installez un dossier d'environnement virtuel : 
+2. Lancer l'application
 ```
-virtualenv .venv
+docker-compose build
+docker-compose up
 ```
-
-
-3. Activez l'environnement virtuel :
-```
-source .venv/bin/activate (linux)
-```
-```
-.venv\Scripts\activate.bat (windows)
-```
-
-
-4. Installez toutes les bibliothèques et extensions requises pour ce projet. Toutes les dépendances sont répertoriées dans le fichier requirements.txt. Exécutez la commande ci-dessous pour les installer tous en une seule commande (windows ou linux) :
-```
-pip install -r requirements.txt
-```
-
 
 ## Sources qui ont aidé au développement
 
